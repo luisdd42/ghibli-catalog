@@ -53,7 +53,23 @@ function App() {
           }}
         />
 
-        <MovieList movies={filteredMovies} />
+        {filteredMovies.length > 0 ? (
+          <MovieList movies={filteredMovies} />
+        ) : (
+          <p
+            style={{
+              textAlign: "center",
+              fontSize: "1.2rem",
+              color: "#aa0000",
+              backgroundColor: "#ffe6e6",
+              padding: "1rem",
+              borderRadius: "8px",
+            }}
+          >
+            ❌ No se encontraron películas con el nombre: "
+            <strong>{search}</strong>"
+          </p>
+        )}
       </div>
     </div>
   );
