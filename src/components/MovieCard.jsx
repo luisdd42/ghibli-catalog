@@ -2,13 +2,24 @@ function MovieCard({ movie }) {
   return (
     <div
       style={{
-        border: "1px solid #ccc",
+        border: "2px solid #0099cc",
         padding: "1rem",
-        borderRadius: "10px",
-        backgroundColor: "#f0f8ff",
+        borderRadius: "15px",
+        backgroundColor: "#ffffff",
+        boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
       }}
     >
-      <h2>{movie.title}</h2>
+      <img
+        src={movie.image}
+        alt={movie.title}
+        style={{
+          width: "100%",
+          height: "300px",
+          objectFit: "cover",
+          borderRadius: "10px",
+        }}
+      />
+      <h2 style={{ color: "#004080" }}>{movie.title}</h2>
       <p>
         <strong>Director:</strong> {movie.director}
       </p>

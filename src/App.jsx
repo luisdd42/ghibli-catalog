@@ -1,35 +1,62 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react";
+import MovieList from "./components/MovieList";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [movies, setMovies] = useState([]);
+  const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    fetch("https://ghibliapi.vercel.app/films")
+      .then((res) => res.json())
+      .then((data) => setMovies(data));
+  }, []);
+
+  const filteredMovies = movies.filter((movie) =>
+    movie.title.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div
+      style={{
+        width: "100vw",
+        minHeight: "100vh",
+        margin: 0,
+        padding: 0,
+        backgroundColor: "#d0f0ff",
+        fontFamily: "Arial, sans-serif",
+        boxSizing: "border-box",
+      }}
+    >
+      <div
+        style={{
+          padding: "2rem",
+          maxWidth: "1400px",
+          margin: "0 auto",
+        }}
+      >
+        <h1 style={{ textAlign: "center", color: "#004080" }}>
+          🎥 Catálogo Studio Ghibli
+        </h1>
+
+        <input
+          type="text"
+          placeholder="Buscar película"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          style={{
+            padding: "0.7rem",
+            width: "100%",
+            marginBottom: "2rem",
+            fontSize: "1.1rem",
+            borderRadius: "8px",
+            border: "1px solid #888",
+          }}
+        />
+
+        <MovieList movies={filteredMovies} />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
